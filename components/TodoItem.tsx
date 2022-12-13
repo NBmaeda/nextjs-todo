@@ -1,10 +1,20 @@
-import type { Todo } from "../types/index";
+import type { TodoItem } from "../types/index";
 
-const TodoItem: React.FC<Todo> = ({ text, id, isDone }: Todo) => {
+const TodoItem: React.FC<TodoItem> = ({
+  title,
+  id,
+  completed,
+  handleChange,
+}: TodoItem) => {
   return (
     <label>
-      <input type="checkbox" checked={isDone} />
-      <span>{text}</span>
+      <input
+        type="checkbox"
+        checked={completed}
+        name={id}
+        onChange={handleChange}
+      />
+      <span>{title}</span>
     </label>
   );
 };

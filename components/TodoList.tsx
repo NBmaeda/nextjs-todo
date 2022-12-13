@@ -1,11 +1,14 @@
 import TodoItem from "./TodoItem";
-import { Todo } from "../types";
-type Todos = {
-  todos: Todo[];
-};
+import type { Todo } from "../types";
 
-const TodoList: React.FC<Todos> = ({ todos }: Todos) => {
-  if (todos.length <= 0)
+const TodoList = ({
+  todos,
+  handleChangeCompleted,
+}: {
+  todos: Todo[];
+  handleChangeCompleted: any;
+}) => {
+  if (!todos || todos.length <= 0)
     return (
       <div>
         <p>まだTodoが登録されていません。</p>
@@ -15,8 +18,13 @@ const TodoList: React.FC<Todos> = ({ todos }: Todos) => {
   return (
     <ul>
       {todos.map((todo) => (
-        <li key={todo.id}>
-          <TodoItem {...todo} />
+        <li key={todo?.id}>
+          <TodoItem
+            title={todo.title}
+            id={todo.id}
+            completed={todo.completed}
+            handleChange={handleChangeCompleted}
+          />
         </li>
       ))}
     </ul>

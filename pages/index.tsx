@@ -1,42 +1,33 @@
+import React, { Suspense, useState } from "react";
 import Head from "next/head";
 import TodoList from "../components/TodoList";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-
-let todos = [
-  {
-    text: "Todoアプリを作る",
-    id: "3d594650-3436-11e9-bc57-8b80ba54c431",
-    isDone: false,
-  },
-  {
-    text: "夕食を食べる",
-    id: "3d599470-3436-11e9-bc57-8b80ba54c431",
-    isDone: false,
-  },
-  {
-    text: "朝食を食べる",
-    id: "3d599471-3436-11e9-bc57-8b80ba54c431",
-    isDone: true,
-  },
-  {
-    text: "GraphQLとDBとの接続→https://apollographql-jp.com/tutorial/data-source/",
-    id: "3d594650-3436-11e9-bc57-8b80ba54c431",
-    isDone: false,
-  },
-  {
-    text: "コンポーネントの分割考える",
-    id: "3d599470-3436-11e9-bc57-8b80ba54c431",
-    isDone: false,
-  },
-  {
-    text: "スタイル調整する",
-    id: "3d599471-3436-11e9-bc57-8b80ba54c431",
-    isDone: false,
-  },
-];
+import { useFetchedTodos } from "../hooks/useFetchedTodos";
+import supabase from "../utils/supabase";
 
 const Home: React.FC = () => {
+  const [title, setTitle] = useState("");
+  const { todos, fetchTodos } = useFetchedTodos();
+  const addTodo = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await supabase.from("todos").insert({ title, completed: false });
+    fetchTodos();
+    setTitle("");
+  };
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+  const handleChangeCompleted = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    e.preventDefault();
+    const { error } = await supabase
+      .from("todos")
+      .update({ completed: e.target.checked })
+      .eq("id", e.target.name);
+    fetchTodos();
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -51,13 +42,24 @@ const Home: React.FC = () => {
 
       <main className={styles.main}>
         <h2>Todo一覧</h2>
-
-        <form>
-          <input type="text" name="todoname" placeholder="Todo Name" />
+        <form onSubmit={addTodo}>
+          <input
+            type="text"
+            name="todoname"
+            placeholder="Todo Name"
+            value={title}
+            onChange={handleChangeTitle}
+          />
           <button type="submit">Add Todo</button>
         </form>
-
-        <TodoList todos={todos} />
+        {todos === null ? (
+          <p>Loading...</p>
+        ) : (
+          <TodoList
+            todos={todos}
+            handleChangeCompleted={handleChangeCompleted}
+          />
+        )}
       </main>
     </div>
   );

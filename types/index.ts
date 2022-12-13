@@ -1,5 +1,13 @@
 export type Todo = {
-  text: string;
+  title: string;
   id: string;
-  isDone: boolean;
+  completed: boolean;
+  created_at: Date;
+};
+export type TodoItem = {
+  title: string;
+  id: string;
+  completed: boolean;
+  created_at?: Date;
+  handleChange: any;
 };
