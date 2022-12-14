@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from "react";
 import Head from "next/head";
 import Header from "../components/Header";
-import Main from "../components/Main";
+import MainContainer from "../components/MainContainer";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
 
       <Header />
 
-      <Main />
+      <MainContainer />
     </div>
   );
 };

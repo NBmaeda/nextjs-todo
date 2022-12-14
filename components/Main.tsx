@@ -1,59 +1,30 @@
-import { useState } from "react";
-import { useFetchedTodos } from "../hooks/useFetchedTodos";
-import supabase from "../utils/supabase";
 import TodoList from "../components/TodoList";
 import styles from "../styles/Home.module.css";
+import type { Todo } from "../types";
 
-const Main: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const { todos, fetchTodos } = useFetchedTodos();
-  const addTodo = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (title.trim().length !== 0) {
-      await supabase.from("todos").insert({ title, completed: false });
-      fetchTodos();
-      setTitle("");
-    } else {
-      alert("Todoを入力してください。");
-    }
-  };
-
-  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const handleChangeCompleted = async (
+const Main = ({
+  title,
+  todos,
+  addTodo,
+  handleChangeTitle,
+  handleClickDelete,
+  handleClickDeleteCompleted,
+  handleChangeCompleted,
+}: {
+  title: string;
+  todos: Todo[] | null;
+  addTodo: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClickDelete: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => Promise<void>;
+  handleClickDeleteCompleted: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => Promise<void>;
+  handleChangeCompleted: (
     e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    e.preventDefault();
-    const { error } = await supabase
-      .from("todos")
-      .update({ completed: e.target.checked })
-      .eq("id", e.target.name);
-    fetchTodos();
-  };
-
-  const handleClickDelete = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    const { data, error } = await supabase
-      .from("todos")
-      .delete()
-      .match({ id: e.currentTarget.name });
-    fetchTodos();
-  };
-
-  const handleClickDeleteCompleted = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    const { data, error } = await supabase
-      .from("todos")
-      .delete()
-      .match({ completed: true });
-    fetchTodos();
-  };
+  ) => Promise<void>;
+}) => {
   return (
     <main className={styles.main}>
       <h2>Todo一覧</h2>
