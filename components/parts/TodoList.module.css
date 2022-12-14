@@ -7,7 +7,7 @@
 .listItem {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 }
 .listItem + .listItem {
   margin-top: 10px;
