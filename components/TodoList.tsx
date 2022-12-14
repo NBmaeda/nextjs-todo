@@ -4,9 +4,11 @@ import type { Todo } from "../types";
 const TodoList = ({
   todos,
   handleChangeCompleted,
+  handleClickDelete,
 }: {
   todos: Todo[];
   handleChangeCompleted: any;
+  handleClickDelete: any;
 }) => {
   if (!todos || todos.length <= 0)
     return (
@@ -23,7 +25,8 @@ const TodoList = ({
             title={todo.title}
             id={todo.id}
             completed={todo.completed}
-            handleChange={handleChangeCompleted}
+            handleChangeCompleted={handleChangeCompleted}
+            handleClickDelete={handleClickDelete}
           />
         </li>
       ))}
