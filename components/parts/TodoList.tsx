@@ -1,5 +1,6 @@
 import TodoItem from "./TodoItem";
 import type { Todo } from "../../common/types";
+import styles from "./TodoList.module.css";
 
 const TodoList = ({
   todos,
@@ -18,9 +19,9 @@ const TodoList = ({
     );
 
   return (
-    <ul>
+    <ul className={styles.list}>
       {todos.map((todo) => (
-        <li key={todo?.id}>
+        <li key={todo?.id} className={styles.listItem}>
           <TodoItem
             title={todo.title}
             id={todo.id}

@@ -1,4 +1,5 @@
 import TodoList from "./parts/TodoList";
+import TodoForm from "./parts/TodoForm";
 import styles from "../common/styles/Home.module.css";
 import type { Todo } from "../common/types";
 
@@ -28,25 +29,14 @@ const Main = ({
   return (
     <main className={styles.main}>
       <h2>Todo一覧</h2>
-      <form onSubmit={addTodo}>
-        <input
-          type="text"
-          name="todoname"
-          placeholder="Do Todo"
-          value={title}
-          onChange={handleChangeTitle}
-        />
-        <button type="submit" className="button">
-          Todoを追加
-        </button>
-        <button
-          type="button"
-          className="button"
-          onClick={handleClickDeleteCompleted}
-        >
-          完了済みのTodoを削除
-        </button>
-      </form>
+
+      <TodoForm
+        title={title}
+        handleSubmit={addTodo}
+        handleChangeTitle={handleChangeTitle}
+        handleClickDeleteCompleted={handleClickDeleteCompleted}
+      />
+
       {todos === null ? (
         <p>Loading...</p>
       ) : (

@@ -1,4 +1,5 @@
 import type { TodoItem } from "../../common/types";
+import styles from "./TodoItem.module.css";
 
 const TodoItem: React.FC<TodoItem> = ({
   title,
@@ -8,20 +9,25 @@ const TodoItem: React.FC<TodoItem> = ({
   handleClickDelete,
 }: TodoItem) => {
   return (
-    <p>
-      <label>
+    <>
+      <label className={styles.label}>
         <input
           type="checkbox"
           checked={completed}
           name={id}
           onChange={handleChangeCompleted}
+          className={styles.checkbox}
         />
-        <span>{title}</span>
+        <span className={styles.title}>{title}</span>
       </label>
-      <button name={id} onClick={handleClickDelete} className="button">
+      <button
+        name={id}
+        onClick={handleClickDelete}
+        className={`${styles.button} button`}
+      >
         削除
       </button>
-    </p>
+    </>
   );
 };
 

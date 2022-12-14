@@ -1,0 +1,15 @@
+.header {
+  padding: 10px;
+  background: #444;
+  color: #fff;
+}
+.title {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 1.5em;
+}
+.logo {
+  display: inline-block;
+  margin-right: 5px;
+}

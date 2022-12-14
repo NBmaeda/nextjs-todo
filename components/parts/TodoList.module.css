@@ -1,0 +1,14 @@
+.list {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 0;
+  list-style: none;
+}
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.listItem + .listItem {
+  margin-top: 10px;
+}
