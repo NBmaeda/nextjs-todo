@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useFetchedTodos } from "../hooks/useFetchedTodos";
+import { useFetchedTodos } from "../common/hooks/useFetchedTodos";
 import Main from "./Main";
-import supabase from "../utils/supabase";
+import supabase from "../common/utils/supabase";
 
 const MainContainer = () => {
   const [title, setTitle] = useState("");

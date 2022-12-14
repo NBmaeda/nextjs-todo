@@ -1,7 +1,7 @@
 const Header: React.FC = () => {
   return (
-    <header>
-      <h1>Todo App</h1>
+    <header className="header">
+      <h1 className="title">Todo App</h1>
     </header>
   );
 };

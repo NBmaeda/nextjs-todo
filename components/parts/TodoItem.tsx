@@ -1,4 +1,4 @@
-import type { TodoItem } from "../types/index";
+import type { TodoItem } from "../../common/types";
 
 const TodoItem: React.FC<TodoItem> = ({
   title,
@@ -18,7 +18,7 @@ const TodoItem: React.FC<TodoItem> = ({
         />
         <span>{title}</span>
       </label>
-      <button name={id} onClick={handleClickDelete}>
+      <button name={id} onClick={handleClickDelete} className="button">
         削除
       </button>
     </p>

@@ -1,6 +1,6 @@
-import TodoList from "../components/TodoList";
-import styles from "../styles/Home.module.css";
-import type { Todo } from "../types";
+import TodoList from "./parts/TodoList";
+import styles from "../common/styles/Home.module.css";
+import type { Todo } from "../common/types";
 
 const Main = ({
   title,
@@ -36,8 +36,14 @@ const Main = ({
           value={title}
           onChange={handleChangeTitle}
         />
-        <button type="submit">Todoを追加</button>
-        <button type="button" onClick={handleClickDeleteCompleted}>
+        <button type="submit" className="button">
+          Todoを追加
+        </button>
+        <button
+          type="button"
+          className="button"
+          onClick={handleClickDeleteCompleted}
+        >
           完了済みのTodoを削除
         </button>
       </form>
