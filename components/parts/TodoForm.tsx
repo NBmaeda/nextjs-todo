@@ -23,7 +23,11 @@ const TodoForm = ({
         onChange={handleChangeTitle}
         className={styles.input}
       />
-      <button type="submit" className={`${styles.button} button`}>
+      <button
+        type="submit"
+        className={`${styles.button} button`}
+        disabled={!title}
+      >
         Todoを追加
       </button>
       <button

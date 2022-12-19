@@ -9,9 +9,16 @@ const MainContainer = () => {
   const addTodo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (title.trim().length !== 0) {
-      await supabase.from("todos").insert({ title, completed: false });
-      fetchTodos();
-      setTitle("");
+      try {
+        const { data, error } = await supabase
+          .from("todos")
+          .insert({ title, completed: false });
+        if (error) throw error;
+        fetchTodos();
+        setTitle("");
+      } catch (error) {
+        alert(error);
+      }
     } else {
       alert("Todoを入力してください。");
     }
@@ -25,31 +32,46 @@ const MainContainer = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    const { data, error } = await supabase
-      .from("todos")
-      .delete()
-      .match({ id: e.currentTarget.name });
-    fetchTodos();
+    try {
+      const { data, error } = await supabase
+        .from("todos")
+        .delete()
+        .match({ id: e.currentTarget.name });
+      if (error) throw error;
+      fetchTodos();
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const deleteCompletedTodo = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    const { data, error } = await supabase
-      .from("todos")
-      .delete()
-      .match({ completed: true });
-    fetchTodos();
+    try {
+      const { data, error } = await supabase
+        .from("todos")
+        .delete()
+        .match({ completed: true });
+      if (error) throw error;
+      fetchTodos();
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const toggleCompleted = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const { error } = await supabase
-      .from("todos")
-      .update({ completed: e.target.checked })
-      .eq("id", e.target.name);
-    fetchTodos();
+    try {
+      const { error } = await supabase
+        .from("todos")
+        .update({ completed: e.target.checked })
+        .eq("id", e.target.name);
+      if (error) throw error;
+      fetchTodos();
+    } catch (error) {
+      alert(error);
+    }
   };
   return (
     <Main
