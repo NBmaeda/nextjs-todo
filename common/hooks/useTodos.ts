@@ -37,7 +37,8 @@ export const useTodos = () => {
         if (error) throw error;
 
         let newTodos = todosState.value?.concat(data);
-        todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
+        if (newTodos)
+          todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
         titleDispatch({ type: "INIT_TITLE", payload: "" });
       } catch (error) {
         alert(error);
@@ -59,7 +60,7 @@ export const useTodos = () => {
         .select();
       if (error) throw error;
       const newTodos = todosState.value?.map((todo) => todo.id !== data[0].id);
-      todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
+      if (newTodos) todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
     } catch (error) {
       alert(error);
     }
@@ -76,7 +77,10 @@ export const useTodos = () => {
         .match({ completed: true })
         .select();
       if (error) throw error;
-      fetchTodos();
+      const newTodos = todosState.value?.map(
+        (todo) => todo.completed === false
+      );
+      if (newTodos) todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
     } catch (error) {
       alert(error);
     }
@@ -98,7 +102,7 @@ export const useTodos = () => {
         return todo;
       });
       console.log(newTodos);
-      todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
+      if (newTodos) todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
     } catch (error) {
       alert(error);
     }
