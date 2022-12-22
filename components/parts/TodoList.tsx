@@ -1,17 +1,11 @@
+import { useContext } from "react";
+import { TodosContext } from "../../contexts/TodosContext";
 import TodoItem from "./TodoItem";
-import type { Todo } from "../../common/types";
 import styles from "./TodoList.module.css";
 
-const TodoList = ({
-  todos,
-  handleChangeCompleted,
-  handleClickDelete,
-}: {
-  todos: Todo[];
-  handleChangeCompleted: any;
-  handleClickDelete: any;
-}) => {
-  if (!todos || todos.length <= 0)
+const TodoList = () => {
+  const { todosState } = useContext(TodosContext);
+  if (!todosState.value || todosState.value.length <= 0)
     return (
       <div>
         <p>まだTodoが登録されていません。</p>
@@ -20,14 +14,12 @@ const TodoList = ({
 
   return (
     <ul className={styles.list}>
-      {todos.map((todo) => (
-        <li key={todo?.id} className={styles.listItem}>
+      {todosState.value.map((todo) => (
+        <li key={todo.title} className={styles.listItem}>
           <TodoItem
             title={todo.title}
             id={todo.id}
             completed={todo.completed}
-            handleChangeCompleted={handleChangeCompleted}
-            handleClickDelete={handleClickDelete}
           />
         </li>
       ))}

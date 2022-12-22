@@ -1,38 +1,36 @@
+import { useContext } from "react";
+import { TitleContext } from "../../contexts/TitleContext";
+import { useTodos } from "../../common/hooks/useTodos";
 import styles from "./TodoForm.module.css";
+const TodoForm = () => {
+  const { addTodo, deleteCompletedTodo } = useTodos();
+  const { titleState, titleDispatch } = useContext(TitleContext);
 
-const TodoForm = ({
-  title,
-  handleSubmit,
-  handleChangeTitle,
-  handleClickDeleteCompleted,
-}: {
-  title: string;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  handleChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleClickDeleteCompleted: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => Promise<void>;
-}) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={addTodo}>
       <input
         type="text"
         name="todoname"
         placeholder="Todoを登録する"
-        value={title}
-        onChange={handleChangeTitle}
+        value={titleState.value}
+        onChange={(e) =>
+          titleDispatch({
+            type: "CHANGE_TITLE",
+            payload: e.target.value,
+          })
+        }
         className={styles.input}
       />
       <button
         type="submit"
         className={`${styles.button} button`}
-        disabled={!title}
+        disabled={!titleState.value}
       >
         Todoを追加
       </button>
       <button
         type="button"
-        onClick={handleClickDeleteCompleted}
+        onClick={deleteCompletedTodo}
         className={`${styles.button} button`}
       >
         完了済みのTodoを削除

@@ -9,6 +9,4 @@ export type TodoItem = {
   id: string;
   completed: boolean;
   created_at?: Date;
-  handleChangeCompleted: any;
-  handleClickDelete: any;
 };
