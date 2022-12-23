@@ -16,11 +16,7 @@ const TodoList = () => {
     <ul className={styles.list}>
       {todosState.value.map((todo) => (
         <li key={todo.title} className={styles.listItem}>
-          <TodoItem
-            title={todo.title}
-            id={todo.id}
-            completed={todo.completed}
-          />
+          <TodoItem {...todo} />
         </li>
       ))}
     </ul>

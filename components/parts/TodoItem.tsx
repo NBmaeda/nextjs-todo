@@ -1,8 +1,8 @@
 import { useTodos } from "../../common/hooks/useTodos";
-import type { TodoItem } from "../../common/types";
+import type { Todo } from "../../common/types";
 import styles from "./TodoItem.module.css";
 
-const TodoItem: React.FC<TodoItem> = ({ title, id, completed }) => {
+const TodoItem: React.FC<Todo> = ({ title, id, completed }) => {
   const { deleteTodo, toggleCompleted } = useTodos();
   return (
     <>
