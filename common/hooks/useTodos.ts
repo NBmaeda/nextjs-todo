@@ -36,7 +36,9 @@ export const useTodos = () => {
           .select();
         if (error) throw error;
 
-        let newTodos = todosState.value?.concat(data);
+        let newTodos;
+        if (Array.isArray(todosState.value))
+          newTodos = [data, ...todosState.value];
         if (newTodos)
           todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
         titleDispatch({ type: "INIT_TITLE", payload: "" });
