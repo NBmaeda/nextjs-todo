@@ -2,7 +2,9 @@ import { useTodos } from "../../common/hooks/useTodos";
 import type { Todo } from "../../common/types";
 import styles from "./TodoItem.module.css";
 
+// 親コンポーネントから渡されたpropsは、コンポーネントの引数として分割代入。
 const TodoItem: React.FC<Todo> = ({ title, id, completed }) => {
+  // 各イベントに割り当てるための関数を代入。
   const { deleteTodo, toggleCompleted } = useTodos();
   return (
     <>

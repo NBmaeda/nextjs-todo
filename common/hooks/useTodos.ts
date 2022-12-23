@@ -38,7 +38,7 @@ export const useTodos = () => {
 
         let newTodos;
         if (Array.isArray(todosState.value))
-          newTodos = [data, ...todosState.value];
+          newTodos = [data[0], ...todosState.value];
         if (newTodos)
           todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
         titleDispatch({ type: "INIT_TITLE", payload: "" });
