@@ -23,7 +23,6 @@ export const useTodos = () => {
       alert(error);
       todosDispatch({ type: "INIT_TODOS", payload: [] });
     }
-    console.log("fetched");
   };
 
   const addTodo = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,7 +102,6 @@ export const useTodos = () => {
         }
         return todo;
       });
-      console.log(newTodos);
       if (newTodos) todosDispatch({ type: "CHANGE_TODOS", payload: newTodos });
     } catch (error) {
       alert(error);
